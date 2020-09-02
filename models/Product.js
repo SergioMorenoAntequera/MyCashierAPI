@@ -1,17 +1,20 @@
 // MODELO
 const dbConnection = require("./DBConnection");
-const table = "products";
+const Model = require("./Model");
  
-module.exports = class Product {
+module.exports = class Product extends Model {
+
+    static tableName = "products";
 
     constructor(barcode, name, price) {
+        super();
         this.barcode = barcode;
         this.name = name;
         this.price = price;
     }
 
     static async all(callbackGiveData) {
-        let sqlQuery = 'SELECT * FROM ' + table;
+        let sqlQuery = 'SELECT * FROM ' + this.tableName;
 
         dbConnection.query(sqlQuery, function(err, rows) {
             if (err) throw err;
@@ -19,15 +22,4 @@ module.exports = class Product {
             callbackGiveData(rows);
         });
     }
-
-    // static test(){
-    //     console.log("Como esto vaya me cago encima");  
-    // }
-    
-    // static getById(id){
-
-    // }
-    // static getByBarCode(id){
-        
-    // }
 }

@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 var Product = require("../models/Product");
+var product = new Product("barcode", "otro", "lo otro");
 
 // Get all products
-router.get('/all', function(req, res, next) {
+router.get('/', function(req, res, next) {
   Product.all((result) => {
     res.json(result);
   }); 
