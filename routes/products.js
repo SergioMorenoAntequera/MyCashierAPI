@@ -13,7 +13,10 @@ router.get('/', function(req, res, next) {
 
 // Add a product
 router.post('/create', function(req, res, next) {
-  res.send('Adding one product');
+  var product = Product.newProductWithQuery(req.query);
+  product.create(() => {
+    res.send(product);
+  });
 });
 
 // Get one product, depending in ID
