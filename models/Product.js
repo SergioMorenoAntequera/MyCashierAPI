@@ -7,6 +7,8 @@ sqlQuery = sql.Query('mysql');
 
 module.exports = class Product extends Model {
 
+    static table = "products";
+
     // Constructores
     constructor(barcode, name, price) {
         super("products");
@@ -22,12 +24,26 @@ module.exports = class Product extends Model {
 
     // Get everything
     static async all(callbackGiveData) {
-        let sqlQuery = 'SELECT * FROM ' + this.tableName;
+        let sqlQuery = 'SELECT * FROM ' + this.table;
 
         dbConnection.query(sqlQuery, function(err, rows) {
             if (err) throw err;
 
             callbackGiveData(rows);
+        });
+    }
+
+    static async get(filter, callback){
+        var sqlSelect = sqlQuery.select();
+        var sqlSelect = sqlSelect
+            .from(this.table)
+            .where(filter)
+            .build();
+        
+        dbConnection.query(sqlSelect, function(err, rows) {
+            if (err) throw err;
+
+            callback(rows);
         });
     }
 
@@ -45,6 +61,8 @@ module.exports = class Product extends Model {
             callback();
         });
     }
+
+    
 
     // Create json query
     getJson(){

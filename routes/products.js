@@ -19,9 +19,11 @@ router.post('/create', function(req, res, next) {
   });
 });
 
-// Get one product, depending in ID
-router.get('/:id', function(req, res, next) {
-  res.send('Getting one product');
+// Query generator
+router.get('/get', function(req, res, next) {
+  Product.get(req.query, (result) => {
+    res.json(result);
+  }); 
 });
 
 // Update a product, depending in ID
