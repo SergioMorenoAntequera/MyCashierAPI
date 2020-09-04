@@ -18,12 +18,13 @@ router.get('/', (req, res, next) => {
 
 // Add a product
 router.post('/create', (req, res) => {
-  var product = Product.newProductWithQuery(req.query);
+  var product = Product.newProductWithQuery(req.body);
   product.create().then((result) => {
     product.id = result.insertId;
-    res.send(product);
+    delete product['table'];
+    res.status(201).json(product);
   }).catch((error) => {
-    res.status(500).send(error);
+    res.status(500).json(error);
   }); 
 });
 
