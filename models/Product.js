@@ -23,16 +23,21 @@ module.exports = class Product extends Model {
     }
 
     // Get everything
-    static async all(callbackGiveData) {
-        let sqlQuery = 'SELECT * FROM ' + this.table;
+    static all() {
+        return new Promise((resolve, reject) => {
+            let sqlQuery = 'SELECT * FROM ' + this.table;
 
-        dbConnection.query(sqlQuery, function(err, rows) {
-            if (err) throw err;
-
-            callbackGiveData(rows);
+            dbConnection.query(sqlQuery, function(err, rows) {
+                if(err) {
+                    reject(err);
+                }
+                
+                resolve(rows);
+            });
         });
     }
 
+    // Get with filters
     static async get(filter, callback){
         var sqlSelect = sqlQuery.select();
         var sqlSelect = sqlSelect
@@ -55,10 +60,17 @@ module.exports = class Product extends Model {
             .set(this.getJson())
             .build();
 
-        dbConnection.query(sqlInsert, function(err, rows) {
-            if (err) throw err;
-
-            callback();
+        // Check that the barcode is not taken
+        Product.get({'barcode' : this.barcode}, (result) => {
+            // if(result.length == 0){
+                dbConnection.query(sqlInsert, function(err, rows) {
+                    if (err) throw err;
+        
+                    callback(rows);
+                });
+            // } else {
+            //     callback(false);
+            // }
         });
     }
 
