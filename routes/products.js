@@ -17,28 +17,29 @@ router.get('/', (req, res, next) => {
 }); 
 
 // Add a product
-router.post('/create', [
-  body('barcode').isLength({ min: 5 })
-  ], (req, res) => {
+router.post('/create', [      body('barcode').isLength({ min: 5 }),
+    ], (req, res) => {
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      var product = Product.newProductWithQuery(req.query);
+      product.create((result) => {
+        product.id = result.insertId;
+        res.send(product);
+      }); 
     }
-
-    var product = Product.newProductWithQuery(req.query);
-    product.create((result) => {
-      product.id = result.insertId;
-      res.send(product);
-    }); 
-  }
 );
 
 // Query generator
 router.get('/get', function(req, res, next) {
-  Product.get(req.query, (result) => {
+  Product.get(req.query).then((result) => {
     res.json(result);
-  }); 
+  }).catch((error) => {
+    res.status(500).send(error);
+  });
 });
 
 // Update a product, depending in ID

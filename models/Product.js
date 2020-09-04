@@ -28,9 +28,7 @@ module.exports = class Product extends Model {
             let sqlQuery = 'SELECT * FROM ' + this.table;
 
             dbConnection.query(sqlQuery, function(err, rows) {
-                if(err) {
-                    reject(err);
-                }
+                if(err) reject(err);
                 
                 resolve(rows);
             });
@@ -38,17 +36,20 @@ module.exports = class Product extends Model {
     }
 
     // Get with filters
-    static async get(filter, callback){
-        var sqlSelect = sqlQuery.select();
-        var sqlSelect = sqlSelect
-            .from(this.table)
-            .where(filter)
-            .build();
-        
-        dbConnection.query(sqlSelect, function(err, rows) {
-            if (err) throw err;
+    static get(filter){
+        return new Promise((resolve, reject) => {
+            var sqlSelect = sqlQuery.select();
+            var sqlSelect = sqlSelect
+                .from(this.table)
+                .where(filter)
+                .build();
+            console.log(sqlSelect);
+            
+            dbConnection.query(sqlSelect, function(err, rows) {
+                if (err) reject(err);
 
-            callback(rows);
+                resolve(rows);
+            });
         });
     }
 
