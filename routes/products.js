@@ -36,6 +36,15 @@ router.get('/get', function(req, res, next) {
   });
 });
 
+// Query generator
+router.get('/:id', function(req, res, next) {
+  Product.get(req.params).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    res.status(500).send(error);
+  });
+});
+
 // Update a product, depending in ID
 router.put('/:id', function(req, res, next) {
   res.send('Updating one product');
