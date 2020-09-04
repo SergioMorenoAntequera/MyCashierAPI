@@ -43,7 +43,6 @@ module.exports = class Product extends Model {
                 .from(this.table)
                 .where(filter)
                 .build();
-            console.log(sqlSelect);
             
             dbConnection.query(sqlSelect, function(err, rows) {
                 if (err) reject(err);
@@ -54,24 +53,19 @@ module.exports = class Product extends Model {
     }
 
     // Create in database
-    async create(callback){
-        var sqlInsert = sqlQuery.insert();
-        var sqlInsert = sqlInsert
-            .into(this.table)
-            .set(this.getJson())
-            .build();
-
-        // Check that the barcode is not taken
-        Product.get({'barcode' : this.barcode}, (result) => {
-            // if(result.length == 0){
-                dbConnection.query(sqlInsert, function(err, rows) {
-                    if (err) throw err;
-        
-                    callback(rows);
-                });
-            // } else {
-            //     callback(false);
-            // }
+    async create(){
+        return new Promise((resolve, reject) => {
+            var sqlInsert = sqlQuery.insert();
+            var sqlInsert = sqlInsert
+                .into(this.table)
+                .set(this.getJson())
+                .build();
+    
+            dbConnection.query(sqlInsert, function(err, rows) {
+                if (err) reject(err);
+    
+                resolve(rows);
+            });
         });
     }
 
