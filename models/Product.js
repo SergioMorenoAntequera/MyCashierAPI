@@ -69,8 +69,6 @@ module.exports = class Product extends Model {
         });
     }
 
-    
-
     // Create json query
     getJson(){
         return {

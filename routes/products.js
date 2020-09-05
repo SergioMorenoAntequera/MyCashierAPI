@@ -6,11 +6,9 @@ var Product = require("../models/Product");
 var product = new Product("barcode", "otro", "lo otro");
 
 // Get all products
-router.get('/', (req, res, next) => {
-
+router.get('/', (req, res, next) => { 
   Product.all().then((result) => {
     res.json(result);
-    
   }).catch((error) => {
     res.send(error);
   }); 
@@ -28,7 +26,7 @@ router.post('/create', (req, res) => {
   }); 
 });
 
-// Query generator
+// Query generator in the body
 router.get('/get', function(req, res, next) {
   Product.get(req.query).then((result) => {
     res.json(result);
@@ -37,7 +35,16 @@ router.get('/get', function(req, res, next) {
   });
 });
 
-// Query generator
+// Query by barcode in the parameters
+router.get('/barcode/:barcode', function(req, res, next) {
+  Product.get(req.params).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    res.status(500).send(error);
+  });
+});
+
+// Query by id in the parameters
 router.get('/:id', function(req, res, next) {
   Product.get(req.params).then((result) => {
     res.json(result);
