@@ -5,13 +5,15 @@ const Model = require("./Model");
 var sql = require('sql-query'),
 sqlQuery = sql.Query('mysql');
 
-module.exports = class Product extends Model {
+module.exports = class Product {
 
+    // Inherit in js work like shit
     static table = "products";
+    static model = new Model(Product.table);
 
-    // Constructores
+    ///////////////////////////////////////////////////////////////////////
+    // Constructors ///////////////////////////////////////////////////////
     constructor(barcode, name, price) {
-        super("products");
         this.id = null;
         this.barcode = barcode;
         this.name = name;
@@ -22,57 +24,26 @@ module.exports = class Product extends Model {
         return new Product(query.barcode, query.name, query.price);
     }
 
-    // Get everything
-    static all() {
-        return new Promise((resolve, reject) => {
-            let sqlQuery = 'SELECT * FROM ' + this.table;
-
-            dbConnection.query(sqlQuery, function(err, rows) {
-                if(err) reject(err);
-                
-                resolve(rows);
-            });
-        });
+    ///////////////////////////////////////////////////////////////////////
+    // Methods ////////////////////////////////////////////////////////////
+    static all(){
+        return this.model.all();
     }
 
     // Get with filters
     static get(filter){
-        return new Promise((resolve, reject) => {
-            var sqlSelect = sqlQuery.select();
-            var sqlSelect = sqlSelect
-                .from(this.table)
-                .where(filter)
-                .build();
-            
-            dbConnection.query(sqlSelect, function(err, rows) {
-                if (err) reject(err);
-
-                resolve(rows);
-            });
-        });
+        return this.model.get(filter);
     }
 
     // Create in database
-    async create(){
-        return new Promise((resolve, reject) => {
-            var sqlInsert = sqlQuery.insert();
-            var sqlInsert = sqlInsert
-                .into(this.table)
-                .set(this.getJson())
-                .build();
-    
-            dbConnection.query(sqlInsert, function(err, rows) {
-                if (err) reject(err);
-    
-                resolve(rows);
-            });
-        });
+    static create(product){
+        return this.model.create(product, this.table);
     }
 
     // Create json query
     getJson(){
         return {
-            'id': null,
+            'id': this.id,
             "barcode" : this.barcode,
             "name" : this.name,
             "price" : this.price,
