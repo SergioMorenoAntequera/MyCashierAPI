@@ -28,7 +28,14 @@ router.post('/create', (req, res) => {
 
 // Query generator in the body
 router.get('/get', function(req, res) {
-  Product.get(req.query).then((result) => {
+  var filter = {};
+  if(Object.keys(req.query).length !== 0){
+    filter = req.query;
+  } else {
+    filter = req.body;
+  }
+  
+  Product.get(filter).then((result) => {
     res.json(result);
   }).catch((error) => {
     res.status(500).send(error);

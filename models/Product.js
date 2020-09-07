@@ -26,6 +26,12 @@ module.exports = class Product {
 
     ///////////////////////////////////////////////////////////////////////
     // Methods ////////////////////////////////////////////////////////////
+    // Create in database
+    static create(product){
+        return this.model.create(product, this.table);
+    }
+    
+    
     static all(){
         return this.model.all();
     }
@@ -35,10 +41,7 @@ module.exports = class Product {
         return this.model.get(filter);
     }
 
-    // Create in database
-    static create(product){
-        return this.model.create(product, this.table);
-    }
+    
 
     // Create json query
     getJson(){

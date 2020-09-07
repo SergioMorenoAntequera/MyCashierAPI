@@ -46,10 +46,11 @@ module.exports = class Model {
 
     // Filter by json object
     get(filter){
+        
         return new Promise((resolve, reject) => {
             var sqlSelect = sqlQuery.select();
             var sqlSelect = sqlSelect
-                .from(table)
+                .from(this.table)
                 .where(filter)
                 .build();
             
