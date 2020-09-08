@@ -1,6 +1,0 @@
-exports.modules = {
-    database : "",
-    host : "",
-    user : "",
-    password : "",
-}
