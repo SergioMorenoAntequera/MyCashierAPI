@@ -35,11 +35,11 @@ Route.get("/user/:id", 'UserController.getById')
 // PRODUCT CONTROLLER /////////////////////////////////////////////////////////////////////////////
 Route.resource('products', 'ProductController')
 // ...equates to this:
-// Route.get('users', 'UserController.index').as('users.index')
-// Route.post('users', 'UserController.store').as('users.store')
-// Route.get('users/:id', 'UserController.show').as('users.show')
-// Route.put('users/:id', 'UserController.update').as('users.update')
-// Route.patch('users/:id', 'UserController.update')
-// Route.delete('users/:id', 'UserController.destroy').as('users.destroy')
-// Route.get('users/:id/edit', 'UserController.edit').as('users.edit') No need
-// Route.get('users/create', 'UserController.create').as('users.create') No need
+// Route.get('products', 'ProductController.index').as('products.index')
+// Route.post('products', 'ProductController.store').as('products.store')
+// Route.get('products/:id', 'ProductController.show').as('products.show')
+// Route.put('products/:id', 'ProductController.update').as('products.update')
+// Route.patch('products/:id', 'ProductController.update')
+// Route.delete('products/:id', 'ProductController.destroy').as('products.destroy')
+// Route.get('products/:id/edit', 'ProductController.edit').as('products.edit') No need
+// Route.get('products/create', 'ProductController.create').as('products.create') No need

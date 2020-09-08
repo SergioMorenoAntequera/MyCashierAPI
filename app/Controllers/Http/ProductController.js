@@ -20,14 +20,17 @@ class ProductController {
             response.send(false);
         }
     }
-    async show ({ request, response }) {
-        
+    async show ({ request, response, params }) {
+        response.json(await Product.find(params.id));
     }
-    async update ({ request, response }) {
-        // const trx = await Database.beginTransaction()
+    async update ({ request, response, params }) {
+        var product = await Product.find(params.id);
+        product.merge(request.all());
+        await product.save();
+        response.json(product);
     }
-    async destroy ({ request, response }) {
-        var product = await Product.find(request.all().id);
+    async destroy ({ request, response, params }) {
+        var product = await Product.find(params.id);
         response.send(await product.delete());
     }
 }

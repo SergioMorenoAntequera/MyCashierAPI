@@ -1,5 +1,7 @@
 # Adonis API application
 
+There was no way Express was gonna allow me scale the project as I wanted, we moving to Adonis boys
+
 This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
 
 1. Bodyparser
