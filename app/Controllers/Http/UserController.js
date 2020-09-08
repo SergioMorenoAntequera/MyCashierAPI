@@ -25,7 +25,8 @@ class UserController {
         
     }
     async delete ({ request, response }) {
-        // await User.find(request.all().id).delete();
+        var user = await User.find(request.all().id);
+        response.send(await user.delete());
     }
     filter ({ request, response }) {
         
