@@ -1,6 +1,5 @@
 'use strict'
 const Product = use('App/Models/Product')
-const Database = use('Database')
 
 class ProductController {
     async index ({ request, response }) {
@@ -8,11 +7,8 @@ class ProductController {
         response.json(products)
     }
     async store ({ request, response }) {
-        var data = request.all();
         var newProduct = new Product();
-        newProduct.barcode = data.barcode;
-        newProduct.name = data.name;
-        newProduct.price = data.price;
+        newProduct.fill(request.all());
         if(await newProduct.save()) {
             newProduct.id = await Product.getMax('id')
             response.json(newProduct);
