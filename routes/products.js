@@ -3,15 +3,17 @@ var router = express.Router();
 const { body, validationResult } = require('express-validator');
 
 var Product = require("../models/Product");
-var product = new Product("barcode", "otro", "lo otro");
+var Product = require("../models/Model");
 
 // Get all products
 router.get('/', (req, res) => { 
-  Product.all().then((result) => {
-    res.json(result);
-  }).catch((error) => {
-    res.send(error);
-  }); 
+  console.log(Model.tableJavi);
+  Model.all(new Product());
+  // Product.all().then((result) => {
+  //   res.json(result);
+  // }).catch((error) => {
+  //   res.send(error);
+  // }); 
 }); 
 
 // Add a product
@@ -28,7 +30,7 @@ router.post('/create', (req, res) => {
 
 // Query generator in the body
 router.get('/get', function(req, res) {
-  var filter = {};
+  var filter;
   if(Object.keys(req.query).length !== 0){
     filter = req.query;
   } else {

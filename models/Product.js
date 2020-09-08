@@ -5,9 +5,10 @@ const Model = require("./Model");
 var sql = require('sql-query'),
 sqlQuery = sql.Query('mysql');
 
-module.exports = class Product {
+module.exports = class Product extends Model {
 
     // Inherit in js work like shit
+    static tableJavi = "products";
     static table = "products";
     static model = new Model(Product.table);
 
@@ -31,25 +32,19 @@ module.exports = class Product {
         return this.model.create(product, this.table);
     }
     
-    
-    static all(){
-        return this.model.all();
-    }
+    // Get all entries
+    // static all(){
+    //     return this.model.all();
+    // }
 
     // Get with filters
     static get(filter){
         return this.model.get(filter);
     }
 
-    
-
     // Create json query
     getJson(){
-        return {
-            'id': this.id,
-            "barcode" : this.barcode,
-            "name" : this.name,
-            "price" : this.price,
-        };
+        console.log("dentro");
+        return this.model.getJson(this);
     }
 }
