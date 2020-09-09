@@ -33,6 +33,7 @@ Route.get("/user/:id", 'UserController.getById')
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PRODUCT CONTROLLER /////////////////////////////////////////////////////////////////////////////
+Route.get('products/barcode/:barcode', 'ProductController.findByBarcode').as('products.barcode')
 Route.resource('products', 'ProductController')
 // ...equates to this:
 // Route.get('products', 'ProductController.index').as('products.index')

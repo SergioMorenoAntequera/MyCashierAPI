@@ -1,5 +1,6 @@
 'use strict'
 const Product = use('App/Models/Product')
+const Database = use('Database')
 
 class ProductController {
     async index ({ request, response }) {
@@ -28,6 +29,18 @@ class ProductController {
     async destroy ({ request, response, params }) {
         var product = await Product.find(params.id);
         response.send(await product.delete());
+    }
+    async findByBarcode ({ request, response, params }) {
+        // var product = await Product.find(params.barcode);
+        var product = await Database
+            .table('products')
+            .where('barcode', params.barcode)
+            .first()
+        if(product){
+            response.json(product);
+        } else {
+            response.send(false);
+        }
     }
 }
 
