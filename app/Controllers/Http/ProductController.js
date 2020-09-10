@@ -42,6 +42,18 @@ class ProductController {
             response.send(false);
         }
     }
+
+    async getBundles ({ request, response, params }) {
+        var product = await Product.find(params.id);
+        const bundle = await product.bundles().fetch();
+        response.send(bundle);
+    }
+
+    async getOrders ({ request, response, params }) {
+        var product = await Product.find(params.id);
+        const orders = await product.orders().fetch();
+        response.send(orders);
+    }
 }
 
 module.exports = ProductController

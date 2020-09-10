@@ -30,6 +30,18 @@ class OrderController {
         var order = await Order.find(params.id);
         response.send(await order.delete());
     }
+
+    async getBundles ({ request, response, params }) {
+        var order = await Order.find(params.id);
+        const bundle = await order.bundles().fetch();
+        response.send(bundle);
+    }
+
+    async getProducts ({ request, response, params }) {
+        var order = await Order.find(params.id);
+        const products = await order.products().fetch();
+        response.send(products);
+    }
 }
 
 module.exports = OrderController

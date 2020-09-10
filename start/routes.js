@@ -34,6 +34,8 @@ Route.get("/user/:id", 'UserController.getById')
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PRODUCT CONTROLLER /////////////////////////////////////////////////////////////////////////////
 Route.get('products/barcode/:barcode', 'ProductController.findByBarcode').as('products.barcode')
+Route.get('products/:id/bundles', 'ProductController.getBundles').as('products.bundles')
+Route.get('products/:id/orders', 'ProductController.getOrders').as('products.orders')
 Route.resource('products', 'ProductController')
 // ...equates to this:
 // Route.get('products', 'ProductController.index').as('products.index')
@@ -47,8 +49,12 @@ Route.resource('products', 'ProductController')
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // ORDER CONTROLLER ///////////////////////////////////////////////////////////////////////////////
+Route.get('orders/:id/bundles', 'OrderController.getBundles')
+Route.get('orders/:id/products', 'OrderController.getProducts')
 Route.resource('orders', 'OrderController')
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// PACKAGE CONTROLLER /////////////////////////////////////////////////////////////////////////////
+// BUNDLE CONTROLLER //////////////////////////////////////////////////////////////////////////////
+Route.get('bundles/:id/product', 'BundleController.getProduct')
+Route.get('bundles/:id/order', 'BundleController.getOrder')
 Route.resource('bundles', 'BundleController')

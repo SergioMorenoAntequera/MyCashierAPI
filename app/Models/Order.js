@@ -4,6 +4,17 @@
 const Model = use('Model')
 
 class Order extends Model {
+
+    bundles () {
+        return this.hasMany('App/Models/Bundle')
+    }
+
+    products () {
+        return this
+          .belongsToMany('App/Models/Product')
+          .pivotModel('App/Models/Bundle')
+    }
+    
 }
 
 module.exports = Order

@@ -31,6 +31,17 @@ class PackageController {
         var bundle = await Bundle.find(params.id);
         response.send(await bundle.delete());
     }
+
+    async getProduct ({ request, response, params }) {
+        var bundle = await Bundle.find(params.id);
+        const bundleProduct = await bundle.product().fetch(); 
+        response.json(bundleProduct);
+    }
+    async getOrder ({ request, response, params }) {
+        var bundle = await Bundle.find(params.id);
+        const bundleOrder = await bundle.order().fetch(); 
+        response.json(bundleOrder);
+    }
 }
 
 module.exports = PackageController
