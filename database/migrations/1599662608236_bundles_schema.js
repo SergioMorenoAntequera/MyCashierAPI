@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class PackagesSchema extends Schema {
   up () {
-    this.create('packages', (table) => {
+    this.create('bundles', (table) => {
       table.increments()
       table.integer('order_id').notNullable().default(0)
       table.integer('product_id').notNullable().default(0)
@@ -15,7 +15,7 @@ class PackagesSchema extends Schema {
   }
 
   down () {
-    this.drop('packages')
+    this.drop('bundles')
   }
 }
 
