@@ -24,12 +24,7 @@ Route.get('/', () => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // USER CONTROLLER ////////////////////////////////////////////////////////////////////////////////
-Route.get("/user", 'UserController.index')
-Route.post("/user", 'UserController.create')
-Route.put("/user", 'UserController.update')
-Route.delete("/user", 'UserController.delete')
-Route.get("/user/filter", 'UserController.filter')
-Route.get("/user/:id", 'UserController.getById')
+Route.resource('users', 'UserController')
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PRODUCT CONTROLLER /////////////////////////////////////////////////////////////////////////////
@@ -37,15 +32,6 @@ Route.get('products/barcode/:barcode', 'ProductController.findByBarcode').as('pr
 Route.get('products/:id/bundles', 'ProductController.getBundles').as('products.bundles')
 Route.get('products/:id/orders', 'ProductController.getOrders').as('products.orders')
 Route.resource('products', 'ProductController')
-// ...equates to this:
-// Route.get('products', 'ProductController.index').as('products.index')
-// Route.post('products', 'ProductController.store').as('products.store')
-// Route.get('products/:id', 'ProductController.show').as('products.show')
-// Route.put('products/:id', 'ProductController.update').as('products.update')
-// Route.patch('products/:id', 'ProductController.update')
-// Route.delete('products/:id', 'ProductController.destroy').as('products.destroy')
-// Route.get('products/:id/edit', 'ProductController.edit').as('products.edit') No need
-// Route.get('products/create', 'ProductController.create').as('products.create') No need
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // ORDER CONTROLLER ///////////////////////////////////////////////////////////////////////////////
@@ -58,3 +44,14 @@ Route.resource('orders', 'OrderController')
 Route.get('bundles/:id/product', 'BundleController.getProduct')
 Route.get('bundles/:id/order', 'BundleController.getOrder')
 Route.resource('bundles', 'BundleController')
+
+// Route.resource('products', 'ProductController')
+// ...equates to this:
+// Route.get('products', 'ProductController.index').as('products.index')
+// Route.post('products', 'ProductController.store').as('products.store')
+// Route.get('products/:id', 'ProductController.show').as('products.show')
+// Route.put('products/:id', 'ProductController.update').as('products.update')
+// Route.patch('products/:id', 'ProductController.update')
+// Route.delete('products/:id', 'ProductController.destroy').as('products.destroy')
+// Route.get('products/:id/edit', 'ProductController.edit').as('products.edit') No need
+// Route.get('products/create', 'ProductController.create').as('products.create') No need
