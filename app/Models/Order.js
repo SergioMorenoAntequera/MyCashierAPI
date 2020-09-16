@@ -15,6 +15,10 @@ class Order extends Model {
           .pivotModel('App/Models/Bundle')
     }
     
+    user() {
+        return this.belongsTo('App/Models/User')
+    }
+
 }
 
 module.exports = Order

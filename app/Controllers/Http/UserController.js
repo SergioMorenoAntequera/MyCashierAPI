@@ -6,32 +6,38 @@ class UserController {
         var users = await User.all();
         response.json(users)
     }
-    async create ({ request, response }) {
-        var data = request.all();
+    async store ({ request, response }) {
         var newUser = new User();
-        newUser.username = data.username;
-        newUser.email = data.email;
-        newUser.password = data.password;
+        newUser.fill(request.all());
         if(await newUser.save()) {
             newUser.id = await User.getMax('id')
             response.json(newUser);
         } else {
             response.send(false);
         }
-        
     }
-    update ({ request, response }) {
-        
+    async show ({ request, response, params }) {
+        response.json(await User.find(params.id));
     }
-    async delete ({ request, response }) {
-        var user = await User.find(request.all().id);
+    async update ({ request, response, params }) {
+        var user = await User.find(params.id);
+        user.merge(request.all());
+        await user.save();
+        response.json(user);
+    }
+    async destroy ({ request, response, params }) {
+        var user = await User.find(params.id);
         response.send(await user.delete());
     }
-    filter ({ request, response }) {
-        
+    async getTokens ({ request, response, params }) {
+        var user = await User.find(params.id);
+        const tokens = await user.tokens().fetch();
+        response.send(tokens);
     }
-    getById ({ request, response }) {
-        
+    async getOrders ({ request, response, params }) {
+        var user = await User.find(params.id);
+        const orders = await user.orders().fetch();
+        response.send(orders);
     }
 }
 

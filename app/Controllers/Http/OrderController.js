@@ -36,11 +36,15 @@ class OrderController {
         const bundle = await order.bundles().fetch();
         response.send(bundle);
     }
-
     async getProducts ({ request, response, params }) {
         var order = await Order.find(params.id);
         const products = await order.products().fetch();
         response.send(products);
+    }
+    async getUser ({ request, response, params }) {
+        var order = await Order.find(params.id);
+        const user = await order.user().fetch();
+        response.send(user);
     }
 }
 
