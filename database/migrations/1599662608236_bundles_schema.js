@@ -7,9 +7,9 @@ class PackagesSchema extends Schema {
   up () {
     this.create('bundles', (table) => {
       table.increments()
-      table.integer('order_id').notNullable().default(0)
-      table.integer('product_id').notNullable().default(0)
-      table.integer('amount').notNullable()
+      table.integer('order_id').notNullable().references('id').inTable('orders')
+      table.integer('product_id').notNullable().references('id').inTable('products')
+      table.integer('amount')
       table.timestamps()
     })
   }
