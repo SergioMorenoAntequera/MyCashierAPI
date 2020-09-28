@@ -7,8 +7,9 @@ class UserController {
         response.json(users)
     }
     async store ({ request, response }) {
+        var params = request.all();
         var newUser = new User();
-        newUser.fill(request.all());
+        newUser.fill(params);
         if(await newUser.save()) {
             newUser.id = params.id;
             response.json(newUser);
