@@ -10,7 +10,7 @@ class UserController {
         var newUser = new User();
         newUser.fill(request.all());
         if(await newUser.save()) {
-            newUser.id = await User.getMax('id')
+            newUser.id = params.id;
             response.json(newUser);
         } else {
             response.send(false);
