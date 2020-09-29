@@ -8,7 +8,7 @@ class OrdersSchema extends Schema {
     this.create('orders', (table) => {
       table.increments()
       table.string('user_id').notNullable().references('id').inTable('users')
-      table.double('total_price', 5, 2).notNullable()
+      table.double('total_price', 10, 2).notNullable()
       table.timestamps()
     })
   }
