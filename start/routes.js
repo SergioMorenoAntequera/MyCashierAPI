@@ -29,6 +29,11 @@ Route.get('users/:id/tokens', 'UserController.getTokens').as('users.tokens')
 Route.get('users/:id/orders', 'UserController.getOrders').as('users.orders')
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+// TOKEN CONTROLLER ////////////////////////////////////////////////////////////////////////////////
+Route.resource('tokens', 'TokenController')
+Route.get('tokens/:id/user', 'TokenController.getUser').as('tokens.user')
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 // PRODUCT CONTROLLER /////////////////////////////////////////////////////////////////////////////
 Route.get('products/barcode/:barcode', 'ProductController.findByBarcode').as('products.barcode')
 Route.get('products/:id/bundles', 'ProductController.getBundles').as('products.bundles')
