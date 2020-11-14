@@ -1,11 +1,14 @@
 'use strict'
+const adminCheck = use("App/Middleware/CheckForAdminHeader")
 const Token = use('App/Models/Token')
 const Database = use('Database')
 
 class TokenController {
     async index ({ request, response }) {
         var tokens = await Token.all();
-        response.json(tokens)
+        adminCheck(request, response, () => {
+            response.json(tokens)
+        })
     }
     async store ({ request, response }) {
         var newToken = new Token();

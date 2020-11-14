@@ -1,10 +1,13 @@
 'use strict'
+const adminCheck = use("App/Middleware/CheckForAdminHeader")
 const User = use('App/Models/User')
 
 class UserController {
     async index ({ request, response }) {
         var users = await User.all();
-        response.json(users)
+        adminCheck(request, response, () => {
+            response.json(users);
+        })
     }
     async store ({ request, response }) {
         var params = request.all();

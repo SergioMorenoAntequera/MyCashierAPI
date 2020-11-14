@@ -1,12 +1,14 @@
 'use strict'
+const adminCheck = use("App/Middleware/CheckForAdminHeader")
 const Bundle = use('App/Models/Bundle')
 const Database = use('Database')
-
 
 class PackageController {
     async index ({ request, response }) {
         var bundle = await Bundle.all();
-        response.json(bundle)
+        adminCheck(request, response, () => {
+            response.json(bundle)
+        })
     }
     async store ({ request, response }) {
         var newBundle = new Bundle();

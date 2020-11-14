@@ -1,11 +1,14 @@
 'use strict'
+const adminCheck = use("App/Middleware/CheckForAdminHeader")
 const Product = use('App/Models/Product')
 const Database = use('Database')
 
 class ProductController {
     async index ({ request, response }) {
         var products = await Product.all();
-        response.json(products)
+        adminCheck(request, response, () => {
+            response.json(products)
+        })
     }
     async store ({ request, response }) {
         var newProduct = new Product();
