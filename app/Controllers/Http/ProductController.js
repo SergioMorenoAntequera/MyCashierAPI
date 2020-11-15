@@ -6,9 +6,9 @@ const Database = use('Database')
 class ProductController {
     async index ({ request, response }) {
         var products = await Product.all();
-        adminCheck(request, response, () => {
-            response.json(products)
-        })
+        response.json(products)
+        // adminCheck(request, response, () => {
+        // })
     }
     async store ({ request, response }) {
         var newProduct = new Product();
