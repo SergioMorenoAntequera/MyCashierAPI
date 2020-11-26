@@ -47,7 +47,9 @@ class OrderController {
     async getUser ({ request, response, params }) {
         var order = await Order.find(params.id);
         const user = await order.user().fetch();
-        response.send(user);
+        userCheck(user, request, response, () => {
+            response.send(user);
+        })
     }
 }
 

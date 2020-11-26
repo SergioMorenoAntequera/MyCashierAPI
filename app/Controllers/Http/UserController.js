@@ -34,6 +34,7 @@ class UserController {
         response.send(await user.delete());
     }
     async getTokens ({ request, response, params }) {
+        
         var user = await User.find(params.id);
         const tokens = await user.tokens().fetch();
         response.send(tokens);
